@@ -1,12 +1,11 @@
 import Navbar from '@/components/Navbar'
 import React from 'react'
 
-const Schedule = () => {
+const Events = () => {
   return (
     <main>
-      <Navbar/>
     </main>
   )
 }
 
-export default Schedule
+export default Events

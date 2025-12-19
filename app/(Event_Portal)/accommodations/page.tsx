@@ -1,12 +1,11 @@
 import Navbar from '@/components/Navbar'
 import React from 'react'
 
-const InteractiveSessions = () => {
+const Accommodations = () => {
   return (
     <main>
-      <Navbar/>
     </main>
   )
 }
 
-export default InteractiveSessions
+export default Accommodations
