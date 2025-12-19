@@ -4,7 +4,6 @@ import React from 'react'
 const Profiles = () => {
   return (
     <main>
-      <Navbar/>
     </main>
   )
 }

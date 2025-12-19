@@ -1,12 +1,11 @@
 import Navbar from '@/components/Navbar'
 import React from 'react'
 
-const HomePage = () => {
+const GuestLectures = () => {
   return (
     <main>
-      <Navbar/>
     </main>
   )
 }
 
-export default HomePage
+export default GuestLectures

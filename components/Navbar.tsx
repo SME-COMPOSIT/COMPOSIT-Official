@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const Navbar = () => {
@@ -29,11 +30,17 @@ const Navbar = () => {
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90vw]">
       {/* Glass container */}
-      <div className="backdrop-blur-lg bg-white/5 border border-white/15 rounded-4xl shadow-[0_20px_60px_rgba(92,10,10,0.35)] px-6 py-4 transition-all duration-300">
+      <div className="backdrop-blur-3xl bg-white/5 border border-white/15 rounded-4xl shadow-[0_20px_60px_rgba(92,10,10,0.35)] px-6 py-4 transition-all duration-300">
         <div className="flex items-center justify-between">
           {/* Logo/Brand */}
-          <Link href="/home" className="text-3xl font-bold text-white hover:text-[#5c0a0a] transition-colors">
-            COMPOSIT
+          <Link href="/home" className="transition-opacity hover:opacity-80">
+            <Image 
+              src="/Composit without text_ white.png" 
+              alt="COMPOSIT Logo" 
+              width={60}
+              height={60}
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -42,7 +49,7 @@ const Navbar = () => {
               <div key={item.path} className="relative group">
                 <Link
                   href={item.path}
-                  className={`px-6 py-2 rounded-4xl text-sm font-light transition-all duration-300 border block ${
+                  className={`px-6 py-2 rounded-4xl text-lg font-light transition-all duration-300 border block ${
                     pathname === item.path
                       ? 'border-[#5c0a0a] text-white/90 bg-white/10 shadow-[0_10px_30px_rgba(92,10,10,0.35)]'
                       : 'border-transparent text-white/90 hover:border-[#5c0a0a] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(92,10,10,0.35)]'
