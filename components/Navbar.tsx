@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 const Navbar = () => {
@@ -32,8 +33,14 @@ const Navbar = () => {
       <div className="backdrop-blur-3xl bg-white/5 border border-white/15 rounded-4xl shadow-[0_20px_60px_rgba(92,10,10,0.35)] px-6 py-4 transition-all duration-300">
         <div className="flex items-center justify-between">
           {/* Logo/Brand */}
-          <Link href="/home" className="text-3xl font-bold text-white hover:text-[#5c0a0a] transition-colors">
-            COMPOSIT
+          <Link href="/home" className="transition-opacity hover:opacity-80">
+            <Image 
+              src="/Composit without text_ white.png" 
+              alt="COMPOSIT Logo" 
+              width={60}
+              height={60}
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
