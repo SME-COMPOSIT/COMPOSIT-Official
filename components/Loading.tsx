@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 
-const orbitDots = Array.from({ length: 8 })
-
 const Loading = () => {
 	return (
 		<div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-black via-[#130707] to-black text-white">
@@ -38,17 +36,6 @@ const Loading = () => {
 							transition={{ repeat: Infinity, duration: 10, ease: 'linear' }}
 						/>
 
-						{orbitDots.map((_, index) => (
-							<motion.span
-								key={index}
-								className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
-								style={{ transformOrigin: '0 -88px' }}
-								initial={{ rotate: index * (360 / orbitDots.length) }}
-								animate={{ rotate: 360 + index * (360 / orbitDots.length), scale: [1, 1.25, 1] }}
-								transition={{ repeat: Infinity, duration: 6, ease: 'linear', delay: index * 0.15 }}
-							/>
-						))}
-
 						<motion.div
 							className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-gradient-to-br from-white/15 via-white/5 to-[#5c0a0a]/50 backdrop-blur-xl shadow-[0_20px_60px_rgba(92,10,10,0.35)]"
 							animate={{ scale: [0.95, 1.05, 0.95], rotate: [0, 6, 0] }}
@@ -70,7 +57,7 @@ const Loading = () => {
 							animate={{ letterSpacing: ['0.1em', '0.25em', '0.1em'] }}
 							transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut' }}
 						>
-							COMPOSIT
+							Loading ...
 						</motion.h1>
 					</div>
 
