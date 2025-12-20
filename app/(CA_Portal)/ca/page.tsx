@@ -1,10 +1,9 @@
-import Loading from '@/components/Loading'
 import React from 'react'
 
 const CA = () => {
   return (
     <div>
-      <Loading/>
+      CA Portal Home Page
     </div>
   )
 }
