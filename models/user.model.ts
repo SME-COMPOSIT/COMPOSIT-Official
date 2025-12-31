@@ -1,129 +1,204 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-interface IUser {
-    _id?: mongoose.Types.ObjectId;
-    name: string;
-    username: string;
-    email: string;
-    phone: string;
-    image?: string;
-    gender: "male" | "female" | "other";
-    role: "user" | "admin" | "sa";
-    collegeName: string;
-    collegeId: string;
-    department: string;
-    yearOfStudy: string;
-    city: string;
-    state: string;
-    saId: string;    // The id by which the user was referred
-    referredBy: string;
-    password: string,
-    team?: mongoose.Types.ObjectId; // Reference to Team model
-    registeredEvents: mongoose.Types.ObjectId[]; // Array of references to Event model
-    cirtificateGenerated: boolean;
-    cirtificates: {
-        cirtificateLink: string;
-    }[];
+export interface IUser {
+  _id?: Types.ObjectId;
+
+  name: string;
+  email: string;
+  password?: string;
+
+  mobile?: string;
+  image?: string;
+  compositId?: string;
+
+  gender?: "male" | "female" | "other";
+  role?: "user" | "admin" | "sa";
+
+  collegeName?: string;
+  collegeId?: string;
+  department?: string;
+  yearOfStudy?: string;
+  city?: string;
+  state?: string;
+
+  saId?: string;
+  referredBy?: string;
+  referralLink?: string;
+  referralQrLink?: string;
+  numberOfReferrals?: number;
+  SARank?: number;
+  joinDate?: Date;
+
+  team?: Types.ObjectId;
+  registeredEvents?: Types.ObjectId[];
+
+  cirtificateGenerated?: boolean;
+  cirtificates?: {
+    cirtificateLink: string;
+  }[];
+
+  // Email verification via OTP
+  isVerified?: boolean;
+  otp?: string;
+  otpExpires?: Date;
 }
 
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new Schema<IUser>(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
+      trim: true,
     },
-    username: {
-        type: String, 
-        required: true
-    },
+
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
-    phone: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    image: {
-        type: String,
-        required: false,
-    },
-    gender: {
-        type: String,
-        enum: ["male", "female", "other"],
-        required: true,
-    },
-    role: {
-        type: String,
-        enum: ["user", "admin", "sa"],
-        required: true,
-        default: "user",
-    },
-    collegeName: {
-        type: String,
-        required: true,
-    },
-    collegeId: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    department: {
-        type: String,
-        required: true,
-    },
-    yearOfStudy: {
-        type: String,
-        required: true,
-    },
-    city: {
-        type: String,
-        required: true,
-    },
-    state: {
-        type: String,
-        required: true,
-    },
-    saId: {
-        type: String,
-        required: false,
-    },
-    referredBy: {
-        type: String,
-        required: false,
-    },
+
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: false,
     },
+
+    mobile: {
+      type: String,
+      unique: true,
+      sparse: true, // ✅ optional + unique
+      trim: true,
+    },
+
+    compositId: {
+      type: String,
+      trim: true,
+      sparse: true, // ✅ optional + unique
+    },
+
+    image: {
+      type: String,
+      trim: true,
+    },
+
+    gender: {
+      type: String,
+      enum: ["male", "female", "other"],
+    },
+
+    role: {
+      type: String,
+      enum: ["user", "admin", "sa"],
+      default: "user",
+    },
+
+    collegeName: {
+      type: String,
+      trim: true,
+    },
+
+    collegeId: {
+      type: String,
+      unique: true,
+      sparse: true, // ✅ optional + unique
+      trim: true,
+    },
+
+    department: {
+      type: String,
+    },
+
+    yearOfStudy: {
+      type: String,
+      trim: true,
+    },
+
+    city: {
+      type: String,
+      trim: true,
+    },
+
+    state: {
+      type: String,
+      trim: true,
+    },
+
+    saId: {
+      type: String,
+      trim: true,
+    },
+
+    referralLink: {
+      type: String,
+      trim: true,
+      unique: true,
+      sparse: true,
+    },
+
+    referralQrLink: {
+      type: String,
+      trim: true,
+      unique: true,
+      sparse: true,
+    },
+
+    numberOfReferrals: {
+      type: Number,
+    },
+
+    SARank: {
+      type: String,
+      enum: ["Bronze", "Silver", "Gold", "Platinum"],
+    },
+
+    joinDate: {
+      type: Date,
+      default: Date.now,
+    },
+
     team: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Team",
-        required: false,
+      type: Schema.Types.ObjectId,
+      ref: "Team",
     },
+
     registeredEvents: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Event",
-            required: false,
-        }
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Event",
+      },
     ],
+
     cirtificateGenerated: {
-        type: Boolean,
-        required: true,
-        default: false,
+      type: Boolean,
+      default: false,
     },
+
     cirtificates: [
-        {
-            cirtificateLink: {
-                type: String,
-                unique: true,
-            },
-        }
-    ]
-}, { timestamps: true })
+      {
+        cirtificateLink: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+
+    // Email verification fields
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    otp: {
+      type: String,
+      select: false,
+    },
+    otpExpires: {
+      type: Date,
+      select: false,
+    },
+  },
+  { timestamps: true }
+);
 
 const User = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
 
